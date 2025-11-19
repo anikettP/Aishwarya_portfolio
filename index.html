@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Aishwarya | Portfolio</title>
+    <meta name="description" content="Portfolio of Aishwarya - Aspiring Software Professional & Designer">
+    <meta name="theme-color" content="#f3e8ff">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- Theme Variables --- */
+        :root {
+            --rose-300: #fda4af;
+            --rose-500: #f43f5e;
+            --royal-purple-100: #f3e8ff;
+            --royal-purple-300: #d8b4fe;
+            --royal-purple-600: #7e22ce;
+            --royal-purple-800: #581c87;
+            --antique-gold: #d97706;
+            --bright-gold: #fbbf24;
+            --lavender-tint: rgba(230, 230, 250, 0.9);
+            
+            /* Royal Glass */
+            --glass-bg: rgba(255, 255, 255, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.6);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(-45deg, #fff5f7, #f5f3ff, #fffbf0, #fae8ff);
+            background-size: 400% 400%;
+            animation: gradientBG 30s ease infinite;
+            overflow-x: hidden;
+            color: #2d2d2d;
+            /* Custom cursor only on desktop via media query below */
+            cursor: auto; 
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- 1. STATIC BACKGROUND ELEMENTS --- */
+        .static-pattern {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image: radial-gradient(var(--royal-purple-300) 1px, transparent 1px), radial-gradient(var(--rose-300) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-position: 0 0, 20px 20px;
+            opacity: 0.15;
+            z-index: -2;
+            pointer-events: none;
+            will-change: transform;
+        }
+
+        /* --- 2. DYNAMIC MOVING BACKGROUND --- */
+        .floating-shape {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px); /* Optimized blur for performance */
+            z-index: -1;
+            opacity: 0.4;
+            animation: moveShape 60s infinite alternate linear;
+            will-change: transform;
+        }
+        
+        .shape-1 { width: 50vw; height: 50vw; background: radial-gradient(circle, var(--rose-300), transparent); top: -10%; left: -10%; animation-duration: 70s; }
+        .shape-2 { width: 60vw; height: 60vw; background: radial-gradient(circle, var(--royal-purple-300), transparent); bottom: -10%; right: -10%; animation-duration: 80s; animation-delay: -5s; }
+        .shape-3 { width: 40vw; height: 40vw; background: radial-gradient(circle, #fde68a, transparent); top: 50%; left: 50%; transform: translate(-50%, -50%); animation-name: pulseMove; animation-duration: 60s; opacity: 0.25; }
+        
+        @keyframes moveShape {
+            from { transform: translate(0, 0) rotate(0deg); }
+            to { transform: translate(50px, 50px) rotate(10deg); }
+        }
+        @keyframes pulseMove {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-40%, -60%) scale(1.1); }
+        }
+
+        /* --- 3. SPARKLE CURSOR (Desktop Only) --- */
+        .cursor-sparkle {
+            position: fixed;
+            pointer-events: none;
+            background: radial-gradient(circle, #fff, var(--royal-purple-300));
+            border-radius: 50%;
+            mix-blend-mode: screen;
+            z-index: 9999;
+            animation: sparkleFade 0.8s linear forwards;
+            will-change: transform, opacity;
+        }
+        @keyframes sparkleFade {
+            0% { transform: scale(0); opacity: 1; }
+            50% { opacity: 0.8; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+
+        /* --- Typography & Colors --- */
+        h1, h2, h3, h4, h5 {
+            font-family: 'Playfair Display', serif;
+            letter-spacing: -0.5px;
+            color: #1a1a1a;
+        }
+        .font-hand { font-family: 'Dancing Script', cursive; }
+        .text-rose { color: var(--rose-500) !important; }
+        .text-purple { color: var(--royal-purple-600) !important; }
+        .text-gold { color: var(--antique-gold) !important; }
+        
+        /* Text Gradient */
+        .text-gradient {
+            background: linear-gradient(to right, var(--royal-purple-600), var(--rose-500), var(--antique-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: textShine 8s linear infinite;
+            font-weight: 800;
+        }
+        @keyframes textShine { to { background-position: 200% center; } }
+
+        /* --- COMPONENTS --- */
+        
+        /* Navbar */
+        .glass-nav {
+            background: var(--lavender-tint);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 4px 30px rgba(126, 34, 206, 0.05);
+            transition: padding 0.3s ease;
+        }
+        .nav-link {
+            color: #4a4a4a !important;
+            font-weight: 500;
+            margin: 0 12px;
+            transition: color 0.3s;
+            position: relative;
+        }
+        .nav-link:hover, .nav-link.active { color: var(--royal-purple-600) !important; }
+        .nav-link::after {
+            content: ''; position: absolute; width: 0; height: 2px;
+            bottom: 0; left: 50%; background: var(--royal-purple-600);
+            transition: width 0.3s ease, transform 0.3s ease; transform: translateX(-50%);
+        }
+        .nav-link:hover::after { width: 80%; }
+
+        /* Mobile Navbar Toggler */
+        .navbar-toggler:focus { box-shadow: none; }
+
+        /* Lavender Cards */
+        .lavender-card {
+            background: linear-gradient(135deg, rgba(240, 230, 255, 0.6), rgba(230, 220, 255, 0.4));
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(216, 180, 254, 0.5);
+            box-shadow: 0 10px 30px rgba(126, 34, 206, 0.08);
+            border-radius: 24px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Gold shimmer on hover */
+        .lavender-card::after {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(251, 191, 36, 0.2), transparent);
+            transform: skewX(-25deg); transition: left 0.7s; pointer-events: none;
+        }
+        /* Hover effects only on non-touch devices to prevent sticky hover on mobile */
+        @media (hover: hover) {
+            .lavender-card:hover {
+                transform: translateY(-10px);
+                background: linear-gradient(135deg, rgba(240, 230, 255, 0.9), rgba(230, 220, 255, 0.7));
+                border-color: var(--royal-purple-300);
+                box-shadow: 0 20px 50px rgba(126, 34, 206, 0.2);
+            }
+            .lavender-card:hover::after { left: 150%; }
+            .lavender-card:hover .svg-icon { transform: scale(1.1) rotate(5deg); }
+        }
+
+        .svg-icon {
+            width: 60px; height: 60px; margin-bottom: 1rem;
+            filter: drop-shadow(0 4px 6px rgba(126, 34, 206, 0.2));
+            transition: transform 0.3s ease;
+        }
+
+        /* Glass Card (General) */
+        .glass-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.8), rgba(255,255,255,0.3));
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid white;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+            border-radius: 24px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        @media (hover: hover) {
+            .glass-card:hover { transform: translateY(-10px); }
+        }
+
+        /* Royal Buttons */
+        .btn-royal-png {
+            display: inline-flex; align-items: center; justify-content: center;
+            background: linear-gradient(to bottom, #a855f7, #6b21a8);
+            color: #fff; font-family: 'Playfair Display', serif; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 1px; padding: 12px 30px;
+            border-radius: 12px; border: 2px solid #fbbf24;
+            box-shadow: 0 4px 0 #581c87, 0 10px 20px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.4);
+            transition: transform 0.1s ease, box-shadow 0.1s ease; text-decoration: none; position: relative;
+            white-space: nowrap;
+        }
+        .btn-royal-png:active { transform: translateY(4px); box-shadow: 0 0 0 #581c87, inset 0 2px 5px rgba(0,0,0,0.3); }
+        .btn-royal-png svg, .btn-royal-png i { width: 20px; height: 20px; margin-right: 8px; fill: #fbbf24; color: #fbbf24; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3)); }
+
+        .btn-royal-png-outline {
+            display: inline-flex; align-items: center; justify-content: center;
+            background: linear-gradient(to bottom, #fff, #f3e8ff);
+            color: #6b21a8; font-family: 'Playfair Display', serif; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 1px; padding: 12px 30px;
+            border-radius: 12px; border: 2px solid #6b21a8;
+            box-shadow: 0 4px 0 #e9d5ff, 0 10px 20px rgba(0,0,0,0.1);
+            transition: transform 0.1s ease, box-shadow 0.1s ease; text-decoration: none;
+            white-space: nowrap;
+        }
+        .btn-royal-png-outline:active { transform: translateY(4px); box-shadow: 0 0 0 #e9d5ff; }
+        .btn-royal-png-outline i { margin-right: 8px; }
+
+        /* Avatar */
+        .avatar-container {
+            width: 320px; height: 320px; max-width: 80vw; max-height: 80vw;
+            margin: 0 auto;
+        }
+        .avatar-glow {
+            box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.3);
+            animation: pulse-gold 4s infinite;
+        }
+        @keyframes pulse-gold {
+            0% { box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.3); }
+            70% { box-shadow: 0 0 0 20px rgba(217, 119, 6, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(217, 119, 6, 0); }
+        }
+        .animate-float { animation: float 6s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+
+        /* Typewriter Cursor */
+        .typing-cursor::after { content: '|'; color: var(--antique-gold); animation: blink 1.2s step-start infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* Canvas */
+        #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+
+        /* Scroll Reveal */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* Progress Bars */
+        .progress { height: 8px; background-color: rgba(255,255,255,0.6); border-radius: 10px; overflow: hidden; }
+        .progress-bar { background: linear-gradient(90deg, var(--royal-purple-600), var(--rose-500)); width: 0; transition: width 1.5s ease-out; }
+
+        /* --- RESPONSIVE ADJUSTMENTS --- */
+        @media (max-width: 992px) { /* Tablet and smaller */
+            .display-3 { font-size: 3rem; }
+            .avatar-container { width: 280px; height: 280px; margin-bottom: 2rem; }
+            .navbar-collapse {
+                background: rgba(255, 255, 255, 0.95);
+                padding: 1rem;
+                border-radius: 1rem;
+                margin-top: 1rem;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+                border: 1px solid rgba(255,255,255,0.5);
+            }
+        }
+
+        @media (max-width: 576px) { /* Mobile */
+            h1.display-3 { font-size: 2.2rem; }
+            .h2, h2 { font-size: 1.8rem; }
+            .h3, h3 { font-size: 1.3rem; }
+            .lead { font-size: 1rem; }
+            
+            .btn-royal-png, .btn-royal-png-outline {
+                width: 100%;
+                margin-bottom: 10px;
+                display: flex;
+            }
+            
+            .avatar-container { width: 240px; height: 240px; }
+            
+            .glass-card, .lavender-card { padding: 1.5rem !important; }
+            
+            /* Reduce padding on sections for mobile */
+            section { padding-top: 3rem !important; padding-bottom: 3rem !important; }
+            
+            /* Disable heavy animations on mobile */
+            .animate-float { animation: none; }
+        }
+
+        /* Desktop-only Cursor */
+        @media (min-width: 993px) {
+            body { cursor: default; } /* We use JS sparkles, so default is fine */
+        }
+    </style>
+</head>
+<body data-bs-spy="scroll" data-bs-target="#navbar" data-bs-offset="100">
+
+    <!-- Backgrounds -->
+    <div class="static-pattern"></div>
+    <div class="floating-shape shape-1"></div>
+    <div class="floating-shape shape-2"></div>
+    <div class="floating-shape shape-3"></div>
+    <div class="floating-shape shape-4"></div>
+    <div class="floating-shape shape-5"></div>
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Navbar -->
+    <nav id="navbar" class="navbar navbar-expand-lg fixed-top transition-all py-4 glass-nav">
+        <div class="container">
+            <a class="navbar-brand font-hand fw-bold d-flex align-items-center" href="#">
+                <span class="text-gradient" style="font-size: 1.8rem;">Aishwarya</span><span class="text-gold fs-1">.</span>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="fa fa-bars text-purple fs-3"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav align-items-center gap-2">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#projects">Interests</a></li>
+                    <li class="nav-item ms-lg-3 mt-3 mt-lg-0 w-100 w-lg-auto">
+                        <a href="#contact" class="btn-royal-png text-decoration-none shadow-sm w-100 w-lg-auto" style="padding: 8px 20px; font-size: 0.8rem;">
+                            <i class="fas fa-envelope" style="color: #fbbf24;"></i> Contact
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-vh-100 d-flex align-items-center pt-5 position-relative">
+        <div class="container position-relative z-1">
+            <div class="row align-items-center flex-column-reverse flex-md-row">
+                <div class="col-md-6 text-center text-md-start mt-5 mt-md-0 reveal active">
+                    <h1 class="display-3 fw-bold mb-3 text-dark lh-sm">
+                        Hello, I'm <br><span class="text-gradient">Aishwarya</span>
+                    </h1>
+                    <h2 class="h4 fw-normal text-secondary mb-4" style="font-family: 'Poppins', sans-serif;">
+                        I am a <span id="typing-text" class="typing-cursor fw-bold text-purple"></span>
+                    </h2>
+                    <p class="lead text-secondary mb-5 col-lg-10 mx-auto mx-md-0 fw-light">
+                        I'm a first-year BCA student living in Ajmer. I love exploring how technology works, solving puzzles, and creating things—whether it's a new computer program or a new recipe in the kitchen.
+                    </p>
+                    
+                    <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center justify-content-md-start">
+                        <a href="#contact" class="btn-royal-png">
+                             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M5 16L3 5L8.5 10L12 4L15.5 10L21 5L19 16H5ZM19 19C19 19.6 18.6 20 18 20H6C5.4 20 5 19.6 5 19V18H19V19Z" /></svg>
+                             Hire Me
+                        </a>
+                        <a href="#about" class="btn-royal-png-outline">
+                            <i class="fas fa-gem text-purple"></i> Know More
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-md-6 position-relative reveal text-center">
+                    <div class="avatar-container animate-float">
+                        <div class="glass-card rounded-circle d-flex align-items-center justify-content-center border-4 border-white shadow-lg position-relative avatar-glow p-2 h-100">
+                             <div class="bg-gradient-to-br from-purple-100 to-rose-50 rounded-circle w-100 h-100 d-flex align-items-center justify-content-center overflow-hidden" style="background: linear-gradient(135deg, #f3e8ff, #fff1f2);">
+                                 <i class="fas fa-female text-gradient" style="font-size: 8rem; opacity: 0.8;"></i>
+                             </div>
+                        </div>
+                        <div class="position-absolute top-0 end-0 bg-white/90 backdrop-blur px-3 py-2 rounded-pill shadow-sm animate-float d-none d-sm-block" style="animation-delay: 1s;">
+                            <span class="fs-6">💻</span> <span class="fw-bold text-dark font-hand fs-6">Coder</span>
+                        </div>
+                        <div class="position-absolute bottom-0 start-0 bg-white/90 backdrop-blur px-3 py-2 rounded-pill shadow-sm animate-float d-none d-sm-block" style="animation-delay: 2s;">
+                            <span class="fs-6">🎨</span> <span class="fw-bold text-dark font-hand fs-6">Designer</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-5 position-relative">
+        <div class="container py-lg-5">
+            <div class="text-center mb-5 reveal">
+                <span class="font-hand fs-2 text-gold">Introduction</span>
+                <h2 class="display-5 fw-bold mt-2">About Me</h2>
+            </div>
+
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-6 reveal">
+                    <div class="row g-4">
+                        <div class="col-6">
+                            <div class="lavender-card p-3 p-md-4 text-center h-100" data-tilt>
+                                <svg class="svg-icon" viewBox="0 0 24 24" fill="none"><path d="M12 2C7.5 2 4 5.5 4 10C4 13.5 6.5 16.5 9 18V20C9 20.55 9.45 21 10 21H14C14.55 21 15 20.55 15 20V18C17.5 16.5 20 13.5 20 10C20 5.5 16.5 2 12 2ZM13 18H11V16H13V18ZM14.5 13.5L13.2 14.8C12.8 15.2 12.5 15.5 12.5 16H11.5C11.5 15 12 14.5 12.5 14L14.2 12.3C14.6 11.9 14.8 11.5 14.8 11C14.8 9.5 13.5 8.2 12 8.2C10.5 8.2 9.2 9.5 9.2 11H7.8C7.8 8.7 9.7 6.8 12 6.8C14.3 6.8 16.2 8.7 16.2 11C16.2 12 15.5 12.9 14.5 13.5Z" fill="url(#grad1)"/><defs><linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#a855f7;stop-opacity:1" /><stop offset="100%" style="stop-color:#d97706;stop-opacity:1" /></linearGradient></defs></svg>
+                                <h6 class="fw-bold text-purple">Analytical</h6>
+                                <p class="small text-muted mb-0">Problem solving.</p>
+                            </div>
+                        </div>
+                        <div class="col-6 mt-5">
+                            <div class="lavender-card p-3 p-md-4 text-center h-100" data-tilt>
+                                <svg class="svg-icon" viewBox="0 0 24 24" fill="none"><path d="M12 3C7.03 3 3 7.03 3 12C3 16.97 7.03 21 12 21C12.83 21 13.5 20.33 13.5 19.5C13.5 19.11 13.35 18.76 13.11 18.49C12.88 18.23 12.73 17.88 12.73 17.5C12.73 16.67 13.4 16 14.23 16H16C18.76 16 21 13.76 21 11C21 6.58 16.97 3 12 3ZM6.5 12C5.67 12 5 11.33 5 10.5C5 9.67 5.67 9 6.5 9C7.33 9 8 9.67 8 10.5C8 11.33 7.33 12 6.5 12ZM9.5 8C8.67 8 8 7.33 8 6.5C8 5.67 8.67 5 9.5 5C10.33 5 11 5.67 11 6.5C11 7.33 10.33 8 9.5 8ZM14.5 8C13.67 8 13 7.33 13 6.5C13 5.67 13.67 5 14.5 5C15.33 5 16 5.67 16 6.5C16 7.33 15.33 8 14.5 8ZM17.5 12C16.67 12 16 11.33 16 10.5C16 9.67 16.67 9 17.5 9C18.33 9 19 9.67 19 10.5C19 11.33 18.33 12 17.5 12Z" fill="url(#grad2)"/><defs><linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#f43f5e;stop-opacity:1" /><stop offset="100%" style="stop-color:#fbbf24;stop-opacity:1" /></linearGradient></defs></svg>
+                                <h6 class="fw-bold text-rose">Creative</h6>
+                                <p class="small text-muted mb-0">Aesthetics.</p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="lavender-card p-3 p-md-4 text-center h-100" data-tilt>
+                                <svg class="svg-icon" viewBox="0 0 24 24" fill="none"><path d="M20 18C21.1 18 22 17.1 22 16V6C22 4.9 21.1 4 20 4H4C2.9 4 2 4.9 2 6V16C2 17.1 2.9 18 4 18H0V20H24V18H20ZM4 6H20V16H4V6Z" fill="url(#grad3)"/><defs><linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#7e22ce;stop-opacity:1" /><stop offset="100%" style="stop-color:#60a5fa;stop-opacity:1" /></linearGradient></defs></svg>
+                                <h6 class="fw-bold text-purple">Tech Savvy</h6>
+                                <p class="small text-muted mb-0">Coding.</p>
+                            </div>
+                        </div>
+                        <div class="col-6 mt-5">
+                            <div class="lavender-card p-3 p-md-4 text-center h-100" data-tilt>
+                                <svg class="svg-icon" viewBox="0 0 24 24" fill="none"><path d="M15.5 14H14.71L14.43 13.73C15.41 12.59 16 11.11 16 9.5C16 5.91 13.09 3 9.5 3C5.91 3 3 5.91 3 9.5C3 13.09 5.91 16 9.5 16C11.11 16 12.59 15.41 13.73 14.43L14 14.71V15.5L19 20.49L20.49 19L15.5 14ZM9.5 14C7.01 14 5 11.99 5 9.5C5 7.01 7.01 5 9.5 5C11.99 5 14 7.01 14 9.5C14 11.99 11.99 14 9.5 14Z" fill="url(#grad4)"/><defs><linearGradient id="grad4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#10b981;stop-opacity:1" /><stop offset="100%" style="stop-color:#059669;stop-opacity:1" /></linearGradient></defs></svg>
+                                <h6 class="fw-bold text-purple">Detail</h6>
+                                <p class="small text-muted mb-0">Perfectionist.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 reveal ps-lg-5 mt-5 mt-lg-0">
+                    <p class="lead text-dark mb-4 fst-italic">
+                        "I believe that with enough curiosity, you can learn anything."
+                    </p>
+                    <p class="text-secondary mb-4">
+                        I'm currently studying at <strong>Star Infotech College</strong>. My journey in tech is just beginning, but I'm really passionate about it. I finished my schooling right here in Ajmer, and now I'm diving deep into the world of computers.
+                    </p>
+                    
+                    <div class="d-flex flex-column flex-sm-row gap-3 mt-4">
+                        <div class="d-flex align-items-center px-3 py-2 bg-white/60 rounded-pill shadow-sm border border-white">
+                            <i class="fas fa-map-pin text-rose me-2"></i>
+                            <span class="small fw-bold text-secondary">Ajmer, Rajasthan</span>
+                        </div>
+                        <div class="d-flex align-items-center px-3 py-2 bg-white/60 rounded-pill shadow-sm border border-white">
+                            <i class="fas fa-envelope text-purple me-2"></i>
+                            <span class="small fw-bold text-secondary">aishwaryaharris16@icloud.com</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-5 position-relative">
+        <div class="container py-lg-5">
+            <div class="text-center mb-5 reveal">
+                <span class="font-hand fs-2 text-gold">My Toolbox</span>
+                <h2 class="display-5 fw-bold mt-2">Skills & Abilities</h2>
+            </div>
+
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-6 col-lg-3 reveal">
+                    <div class="lavender-card p-4 text-center h-100" data-tilt>
+                        <i class="fab fa-html5 skill-icon"></i>
+                        <h5 class="fw-bold mt-2">Web Basics</h5>
+                        <p class="small text-muted">HTML5, CSS3 & Bootstrap</p>
+                        <div class="progress mt-3"><div class="progress-bar" style="--target-width: 85%"></div></div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 reveal">
+                    <div class="lavender-card p-4 text-center h-100" data-tilt>
+                        <i class="fas fa-code skill-icon"></i>
+                        <h5 class="fw-bold mt-2">Programming</h5>
+                        <p class="small text-muted">C++ & Python Fundamentals</p>
+                        <div class="progress mt-3"><div class="progress-bar" style="--target-width: 75%"></div></div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 reveal">
+                    <div class="lavender-card p-4 text-center h-100" data-tilt>
+                        <i class="fas fa-desktop skill-icon"></i>
+                        <h5 class="fw-bold mt-2">Computer Skills</h5>
+                        <p class="small text-muted">MS Office & System Logic</p>
+                        <div class="progress mt-3"><div class="progress-bar" style="--target-width: 90%"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interests Section -->
+    <section id="projects" class="py-5">
+        <div class="container py-lg-5">
+            <div class="text-center mb-5 reveal">
+                <span class="font-hand fs-2 text-purple">What I Do</span>
+                <h2 class="display-5 fw-bold mt-2">Interests & Projects</h2>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-4 reveal">
+                    <div class="glass-card p-0 h-100 d-flex flex-column overflow-hidden">
+                        <div class="bg-rose-100 d-flex align-items-center justify-content-center py-5 text-rose display-4">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <div class="p-4 flex-grow-1 d-flex flex-column">
+                            <h5 class="fw-bold">Culinary Creativity</h5>
+                            <p class="text-muted small mb-3">Creating food blogs.</p>
+                            <div class="mt-auto"><span class="badge bg-rose-50 text-rose border border-rose-200 rounded-pill fw-normal px-3 py-2">Hobby</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 reveal">
+                    <div class="glass-card p-0 h-100 d-flex flex-column overflow-hidden">
+                         <div class="bg-purple-100 d-flex align-items-center justify-content-center py-5 text-purple display-4">
+                            <i class="fas fa-pencil-ruler"></i>
+                        </div>
+                        <div class="p-4 flex-grow-1 d-flex flex-column">
+                            <h5 class="fw-bold">Fashion Design</h5>
+                            <p class="text-muted small mb-3">Designing outfits.</p>
+                            <div class="mt-auto"><span class="badge bg-purple-100 text-purple border border-purple-200 rounded-pill fw-normal px-3 py-2">Design</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 reveal">
+                    <div class="glass-card p-0 h-100 d-flex flex-column overflow-hidden">
+                         <div class="bg-warning-subtle d-flex align-items-center justify-content-center py-5 text-gold display-4">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <div class="p-4 flex-grow-1 d-flex flex-column">
+                            <h5 class="fw-bold">Grade Calculator</h5>
+                            <p class="text-muted small mb-3">C++ Program.</p>
+                            <div class="mt-auto"><span class="badge bg-warning-subtle text-gold border border-warning-subtle rounded-pill fw-normal px-3 py-2">Code</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="py-5">
+        <div class="container py-lg-5">
+            <div class="text-center mb-5 reveal">
+                <span class="font-hand fs-2 text-gold">Timeline</span>
+                <h2 class="display-5 fw-bold mt-2">My Education</h2>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-8 position-relative">
+                    <!-- Timeline Line (hidden on mobile) -->
+                    <div class="position-absolute top-0 bottom-0 start-0 ms-md-4 border-start border-2 border-purple-300 d-none d-md-block" style="border-style: dashed !important;"></div>
+                    
+                    <!-- Item 1 -->
+                    <div class="row mb-5 reveal">
+                        <div class="col-md-2 d-none d-md-flex justify-content-center pt-2">
+                             <div class="bg-white border border-3 border-purple-600 rounded-circle d-flex align-items-center justify-content-center shadow-sm" style="width: 48px; height: 48px; z-index: 2;">
+                                <i class="fas fa-graduation-cap text-purple"></i>
+                             </div>
+                        </div>
+                        <div class="col-md-10">
+                            <div class="lavender-card p-4 ms-md-3 border-start border-4 border-purple-600 position-relative" data-tilt>
+                                <span class="badge bg-purple-600 rounded-pill mb-2 px-3 shadow-sm">2025 - 2028</span>
+                                <h4 class="fw-bold mt-2">BCA</h4>
+                                <p class="text-purple fw-medium mb-1">Star Infotech College, Ajmer</p>
+                                <p class="text-muted small mb-0">1st Semester.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 2 -->
+                    <div class="row mb-5 reveal">
+                         <div class="col-md-2 d-none d-md-flex justify-content-center pt-2">
+                             <div class="bg-white border border-3 border-gold-400 rounded-circle d-flex align-items-center justify-content-center shadow-sm" style="width: 48px; height: 48px; z-index: 2;">
+                                <i class="fas fa-school text-warning"></i>
+                             </div>
+                        </div>
+                        <div class="col-md-10">
+                            <div class="lavender-card p-4 ms-md-3 border-start border-4 border-gold-400" data-tilt>
+                                <span class="badge bg-warning text-dark rounded-pill mb-2 px-3 shadow-sm">2023</span>
+                                <h4 class="fw-bold mt-2">12th Grade</h4>
+                                <p class="text-warning-emphasis fw-medium mb-1">NIOS Open Schooling</p>
+                            </div>
+                        </div>
+                    </div>
+
+                     <!-- Item 3 -->
+                     <div class="row reveal">
+                         <div class="col-md-2 d-none d-md-flex justify-content-center pt-2">
+                             <div class="bg-white border border-3 border-secondary rounded-circle d-flex align-items-center justify-content-center shadow-sm" style="width: 48px; height: 48px; z-index: 2;">
+                                <i class="fas fa-book text-secondary"></i>
+                             </div>
+                        </div>
+                        <div class="col-md-10">
+                            <div class="lavender-card p-4 ms-md-3 border-start border-4 border-secondary" data-tilt>
+                                <span class="badge bg-secondary text-white rounded-pill mb-2 px-3 shadow-sm">2021</span>
+                                <h4 class="fw-bold mt-2">10th Grade</h4>
+                                <p class="text-secondary fw-medium mb-1">All Saint Sr. Sec. School</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5 mb-5">
+        <div class="container py-lg-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="glass-card p-4 p-md-5 position-relative overflow-hidden reveal text-center">
+                        <div class="position-relative z-1">
+                            <div class="mb-4">
+                                <span class="font-hand fs-1 text-purple">Let's Connect</span>
+                                <h2 class="display-4 fw-bold mt-2">Get In Touch</h2>
+                            </div>
+                            <p class="lead text-muted mb-5">I'm always happy to chat!</p>
+
+                            <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center mt-4">
+                                <a href="mailto:aishwaryaharris16@icloud.com" class="btn-royal-png">
+                                    <i class="fas fa-paper-plane"></i> Send Email
+                                </a>
+                                <a href="tel:+919256089850" class="btn-royal-png-outline">
+                                    <i class="fas fa-phone"></i> Call Me
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white/60 backdrop-blur border-top py-4 glass-nav">
+        <div class="container text-center">
+            <p class="text-muted mb-3 small">
+                &copy; 2025 <span class="font-hand fw-bold text-purple fs-5">Aishwarya</span>. All Rights Reserved.
+            </p>
+            <div class="d-flex justify-content-center gap-4">
+                <a href="#" class="text-secondary hover-text-purple fs-5 transition" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-secondary hover-text-purple fs-5 transition" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="text-secondary hover-text-purple fs-5 transition" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Scripts -->
+    <script>
+        // --- 1. SPARKLE CURSOR (Desktop Only) ---
+        // Only active on non-touch devices to improve performance on mobile
+        const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        
+        if (!isTouch) {
+            document.addEventListener('mousemove', function(e) {
+                if (Math.random() > 0.3) return; // Throttling
+                const sparkle = document.createElement('div');
+                sparkle.classList.add('cursor-sparkle');
+                const size = (Math.random() * 10 + 4) + 'px';
+                sparkle.style.width = size; sparkle.style.height = size;
+                const colors = ['#E6E6FA', '#d8b4fe', '#fbbf24', '#fff'];
+                sparkle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                sparkle.style.left = e.clientX + 'px'; sparkle.style.top = e.clientY + 'px';
+                
+                const driftX = (Math.random() - 0.5) * 50;
+                const driftY = Math.random() * 50 + 20;
+                
+                sparkle.animate([
+                    { transform: 'translate(0, 0) scale(0.5)', opacity: 1 },
+                    { transform: `translate(${driftX}px, ${driftY}px) scale(0)`, opacity: 0 }
+                ], { duration: 800, fill: 'forwards' });
+
+                document.body.appendChild(sparkle);
+                setTimeout(() => { sparkle.remove(); }, 800);
+            });
+        }
+
+        // --- 2. TYPING ANIMATION ---
+        const textToType = "Future Software Pro";
+        const typingElement = document.getElementById('typing-text');
+        let charIndex = 0;
+        function type() {
+            if (charIndex < textToType.length) {
+                typingElement.textContent += textToType.charAt(charIndex);
+                charIndex++;
+                setTimeout(type, Math.random() * 150 + 100);
+            } else {
+                setTimeout(() => { typingElement.classList.remove('typing-cursor'); }, 2000);
+            }
+        }
+        setTimeout(type, 1000);
+
+        // --- 3. DYNAMIC PARTICLE BACKGROUND ---
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let mouse = { x: -1000, y: -1000 };
+
+        if (!isTouch) {
+            window.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
+        }
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initParticles();
+        }
+        window.addEventListener('resize', resize);
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 4 + 0.5;
+                this.speedX = Math.random() * 0.2 - 0.1;
+                this.speedY = Math.random() * 0.2 - 0.1;
+                const colorSet = [`rgba(217, 119, 6, 0.3)`, `rgba(126, 34, 206, 0.3)`, `rgba(244, 63, 94, 0.3)`];
+                this.color = colorSet[Math.floor(Math.random() * colorSet.length)];
+            }
+            update() {
+                this.x += this.speedX; this.y += this.speedY;
+                if (!isTouch) {
+                    const dx = mouse.x - this.x; const dy = mouse.y - this.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < 150) {
+                        this.x -= (dx / distance) * 1.5;
+                        this.y -= (dy / distance) * 1.5;
+                    }
+                }
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+            draw() {
+                ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            // Reduce density on mobile for performance
+            const divider = isTouch ? 10000 : 6000; 
+            const count = (canvas.width * canvas.height) / divider;
+            for (let i = 0; i < count; i++) particles.push(new Particle());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animate);
+        }
+        resize();
+        animate();
+
+        // --- 4. 3D TILT (Disabled on Touch) ---
+        if (!isTouch) {
+            const tiltElements = document.querySelectorAll('[data-tilt]');
+            tiltElements.forEach(el => {
+                el.addEventListener('mousemove', (e) => {
+                    const rect = el.getBoundingClientRect();
+                    const x = e.clientX - rect.left; const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2; const centerY = rect.height / 2;
+                    const rotateX = ((y - centerY) / centerY) * -5;
+                    const rotateY = ((x - centerX) / centerX) * 5;
+                    el.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+                });
+                el.addEventListener('mouseleave', () => {
+                    el.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale(1)`;
+                });
+            });
+        }
+
+        // --- 5. SCROLL REVEAL ---
+        const revealOnScroll = () => {
+            const reveals = document.querySelectorAll('.reveal');
+            reveals.forEach((reveal) => {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveal.getBoundingClientRect().top;
+                if (elementTop < windowHeight - 50) {
+                    reveal.classList.add('active');
+                }
+            });
+            
+            // Trigger progress bars when visible
+            const progressBars = document.querySelectorAll('.progress-bar');
+            progressBars.forEach(bar => {
+                const rect = bar.getBoundingClientRect();
+                if(rect.top < window.innerHeight - 20) {
+                    bar.style.width = bar.style.getPropertyValue('--target-width');
+                }
+            });
+        };
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+        
+        // --- Navbar Glass Scroll ---
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('shadow-sm', 'py-2');
+                navbar.classList.remove('py-4');
+            } else {
+                navbar.classList.remove('shadow-sm', 'py-2');
+                navbar.classList.add('py-4');
+            }
+        });
+    </script>
+</body>
+</html>
